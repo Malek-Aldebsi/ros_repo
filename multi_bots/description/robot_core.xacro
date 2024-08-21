@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<robot name='base_robot' xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <xacro:arg name="robot_name" default="bot"/>
+
+    <xacro:macro name="base_robot" params="robot_name">  
+
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+      
+      <material name="yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+      
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
+      
+      <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+      </material>
+      
+      <!-- base link -->
+      <link name="base_link">
+      </link>
+      
+      <!-- footprint -->
+      <joint name="base_footprint_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </joint>
+      
+      <link name="base_footprint">
+      </link>
+      
+      <!-- chassis -->
+      <link name="chassis">
+        <inertial>
+          <origin xyz="0.0015483445551351684 9.221976530763488e-17 0.03108493176090641" rpy="0 0 0"/>
+          <mass value="3.096747594228112"/>
+          <inertia ixx="0.014155" iyy="0.013569" izz="0.024448" ixy="0.0" iyz="0.0" ixz="-0.000156"/>
+        </inertial>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/chassis.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+          <material name="red"/>
+        </visual>
+        <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/chassis.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+        </collision>
+      </link>
+      
+      <joint name="chassis_joint" type="fixed">
+        <origin xyz="-0.0 0.0 0.0" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="chassis"/>
+      </joint>
+      
+      <gazebo reference="chassis">
+        <material>Gazebo/Red</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <!-- <self_collide>true</self_collide>
+        <gravity>true</gravity> -->
+      </gazebo>
+      
+      <!-- left rare wheel -->
+      <link name="LR_wheel">
+        <inertial>
+          <origin xyz="5.0182080713057076e-14 -0.013499999999999998 0.0" rpy="0 0 0"/>
+          <mass value="0.6773050413536889"/>
+          <inertia ixx="0.000227" iyy="0.000371" izz="0.000227" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+        </inertial>
+        <visual>
+          <origin xyz="0.071 -0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/LR_wheel.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+          <material name="white"/>
+        </visual>
+        <collision>
+          <origin xyz="0.071 -0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/LR_wheel.stl" scale="0.001 0.001 0.001"/>
+            <!-- <sphere radius="0.0325"/> -->
+          </geometry>
+        </collision>
+      </link>
+      
+      <joint name="LR_joint" type="continuous">
+        <origin xyz="-0.071 0.121 0.0325" rpy="0 0 0"/>
+        <parent link="chassis"/>
+        <child link="LR_wheel"/>
+        <axis xyz="0.0 1.0 0.0"/>
+      </joint>
+      
+      <gazebo reference="LR_wheel">
+        <material>Gazebo/White</material>
+        <!-- <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <self_collide>true</self_collide> -->
+      </gazebo>
+      
+      <!-- left front wheel -->
+      <link name="LF_wheel">
+        <inertial>
+          <origin xyz="5.0182080713057076e-14 -0.013499999999999998 0.0" rpy="0 0 0"/>
+          <mass value="0.6773050413536889"/>
+          <inertia ixx="0.000227" iyy="0.000371" izz="0.000227" ixy="0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+          <origin xyz="-0.071 -0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/LF_wheel.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+          <material name="white"/>
+        </visual>
+        <collision>
+          <origin xyz="-0.071 -0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/LF_wheel.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+        </collision>
+      </link>
+      
+      <joint name="LF_joint" type="fixed">
+        <origin xyz="0.071 0.121 0.0325" rpy="0 0 0"/>
+        <parent link="chassis"/>
+        <child link="LF_wheel"/>
+      </joint>
+      
+      <gazebo reference="LF_wheel">
+        <material>Gazebo/White</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <!-- <mu1>0.2</mu1>
+        <mu2>0.2</mu2> -->
+        <!-- <self_collide>true</self_collide> -->
+      </gazebo>
+      
+      <!-- right front wheel -->
+      <link name="RF_wheel">
+        <inertial>
+          <origin xyz="-2.5104918144336352e-14 0.013499999999999998 0.0" rpy="0 0 0"/>
+          <mass value="0.6773050413536865"/>
+          <inertia ixx="0.000227" iyy="0.000371" izz="0.000227" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+          <origin xyz="-0.071 0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/RF_wheel.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+          <material name="white"/>
+        </visual>
+        <collision>
+          <origin xyz="-0.071 0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/RF_wheel.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+        </collision>
+      </link>
+      
+      <joint name="RF_joint" type="fixed">
+        <origin xyz="0.071 -0.121 0.0325" rpy="0 0 0"/>
+        <parent link="chassis"/>
+        <child link="RF_wheel"/>
+      </joint>
+      
+      <gazebo reference="RF_wheel">
+        <material>Gazebo/White</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <!-- <mu1>0.2</mu1>
+        <mu2>0.2</mu2> -->
+        <!-- <self_collide>true</self_collide> -->
+      </gazebo>
+      
+      <!-- right rare wheel -->
+      <link name="RR_wheel">
+        <inertial>
+          <origin xyz="-2.5091040356528538e-14 0.013499999999999998 0.0" rpy="0 0 0"/>
+          <mass value="0.6773050413536865"/>
+          <inertia ixx="0.000227" iyy="0.000371" izz="0.000227" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+          <origin xyz="0.071 0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/RR_wheel.stl" scale="0.001 0.001 0.001"/>
+          </geometry>
+          <material name="white"/>
+        </visual>
+        <collision>
+          <origin xyz="0.071 0.121 -0.0325" rpy="0 0 0"/>
+          <geometry>
+            <mesh filename="file://$(find multi_bots)/meshes/RR_wheel.stl" scale="0.001 0.001 0.001"/>
+            <!-- <sphere radius="0.0325"/> -->
+          </geometry>
+        </collision>
+      </link>
+      
+      <joint name="RR_joint" type="continuous">
+        <origin xyz="-0.071 -0.121 0.0325" rpy="0 0 0"/>
+        <parent link="chassis"/>
+        <child link="RR_wheel"/>
+        <axis xyz="0.0 1.0 0.0"/>
+      </joint>
+      
+      <gazebo reference="RR_wheel">
+        <material>Gazebo/White</material>
+        <!-- <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <self_collide>true</self_collide> -->
+      </gazebo>
+      
+
+        <!-- SIMULATION DETAILS -->
+        <!-- <xacro:bot_sim robot_name="$(arg robot_name)"/> -->
+    </xacro:macro>
+
+</robot>

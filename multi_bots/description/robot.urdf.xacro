@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robots">
+
+    <xacro:arg name="sim_mode" default="true"/>
+    <xacro:arg name="robot_name" default="bot"/>
+    
+    <xacro:include filename="robot_core.xacro" />
+    <xacro:include filename="gazebo_control.xacro" />
+    <!-- <xacro:include filename="ros2_control.xacro" /> -->
+    <xacro:include filename="lidar.xacro" />
+    <xacro:include filename="camera.xacro" />
+
+    <xacro:base_robot robot_name="$(arg robot_name)"/> 
+    <xacro:lidar  robot_name="$(arg robot_name)"/>
+    <xacro:camera  robot_name="$(arg robot_name)"/>
+    <xacro:gazebo_controller robot_name="$(arg robot_name)"/>
+    <!-- <xacro:ros2_controller robot_name="$(arg robot_name)"/> -->
+    
+</robot>

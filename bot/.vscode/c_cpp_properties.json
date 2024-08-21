@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/malek/bot_ws/install/serial_motor_demo_msgs/include/**",
+        "/home/malek/bot_ws/install/serial/include/**",
+        "/home/malek/bot_ws/install/gazebo_ros2_control/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/malek/bot_ws/src/diffdrive_arduino/include/**",
+        "/home/malek/bot_ws/src/gazebo_ros2_control/gazebo_ros2_control/include/**",
+        "/home/malek/bot_ws/src/serial/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
